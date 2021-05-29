@@ -12,7 +12,7 @@ public class DatabaseConnection {
 		        String dbDriver = "com.mysql.cj.jdbc.Driver";
 		        String dbURL = "jdbc:mysql://localhost:3306/notifier";
 		        String dbUsername = "root";
-		        String dbPassword = "Dharsh@225";
+		        String dbPassword = "examly";
 		  
 		        Class.forName(dbDriver);
 		        Connection con = DriverManager.getConnection(dbURL,
