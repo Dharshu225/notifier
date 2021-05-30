@@ -112,7 +112,7 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(checkPass.equals(password)){
+		if(luser.size()!=0 && checkPass.equals(password)){
 			HttpSession session=request.getSession();  
 			session.setAttribute("fname",firstName);
 			session.setAttribute("notes", nList);
@@ -123,8 +123,9 @@ public class LoginServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}
 		else{
-			System.out.println("Invalid user");
-			response.sendRedirect("index.jsp");
+			request.setAttribute("invalid", "Invalid Username or Password!");
+			RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
+			dispatcher.forward(request, response);
 			return;
 		}
 		
