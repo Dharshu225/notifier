@@ -35,6 +35,7 @@ public class DeleteNoteServlet extends HttpServlet{
 			
 			int uid=LoginServlet.uid;
 			List<Note> nList=new ArrayList<Note>();
+			List<Note> tList=new ArrayList<Note>();
 			List<Note> notList=new ArrayList<Note>();
 			DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy"); 
 			
@@ -63,7 +64,7 @@ public class DeleteNoteServlet extends HttpServlet{
 				nList.add(notes);
 			}
 			
-			ResultSet trs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"' AND rdate ='"+pdate+"'");
+			ResultSet trs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"' AND sdate ='"+pdate+"'");
 			while(trs.next()){
 				int Nid=trs.getInt(1);
 				note=trs.getString(2);
@@ -75,11 +76,27 @@ public class DeleteNoteServlet extends HttpServlet{
 				uid=trs.getInt(8);
 				
 				Note tnote=new Note(Nid,note,description,status,sdate,edate,rdate,uid);
-				notList.add(tnote);
+				tList.add(tnote);
+			}
+			
+			trs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"' AND rdate ='"+pdate+"'");
+			while(trs.next()){
+				int Nid=trs.getInt(1);
+				note=trs.getString(2);
+				description=trs.getString(3);
+				status=trs.getString(4);
+				sdate=dateFormat.format(trs.getDate(5));
+				edate=dateFormat.format(trs.getDate(6));
+				rdate=dateFormat.format(trs.getDate(7));
+				uid=trs.getInt(8);
+				
+				Note notnote=new Note(Nid,note,description,status,sdate,edate,rdate,uid);
+				notList.add(notnote);
 			}
 			
 			HttpSession session=request.getSession();  
 			session.setAttribute("notes", nList);
+			session.setAttribute("tasks", tList);
 			session.setAttribute("notification", notList.size());
 			
 			if(i>0){
