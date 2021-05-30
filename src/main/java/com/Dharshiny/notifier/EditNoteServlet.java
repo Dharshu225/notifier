@@ -51,7 +51,7 @@ public class EditNoteServlet extends HttpServlet{
 			edate=request.getParameter("edate");
 			rdate=request.getParameter("rdate");
 			
-			stmt.executeUpdate("UPDATE note SET description='"+description+"',status='"+status +"',sdate='"+sdate+"',edate='"+edate+"',rdate='"+rdate+"' WHERE nid="+nid);
+			int i=stmt.executeUpdate("UPDATE note SET description='"+description+"',status='"+status +"',sdate='"+sdate+"',edate='"+edate+"',rdate='"+rdate+"' WHERE nid="+nid);
 			
 			ResultSet nrs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"'");
 			while(nrs.next()){
@@ -105,6 +105,13 @@ public class EditNoteServlet extends HttpServlet{
 			session.setAttribute("notes", nList);
 			session.setAttribute("tasks", tList);
 			session.setAttribute("notification", notList.size());
+			
+			if(i>0){
+				request.setAttribute("editS", "Successfully edited note!");
+			}
+			else{
+				request.setAttribute("editF", "Note cannot be edited!");
+			}
 			
 			RequestDispatcher dispatcher=request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
