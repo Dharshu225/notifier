@@ -31,7 +31,7 @@ public class LoginServlet extends HttpServlet {
 	
 	public static List<String> luser=new ArrayList<String>();
 	public static int uid;
-	public String firstName;
+	public String firstName,checkPass;
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
@@ -53,6 +53,8 @@ public class LoginServlet extends HttpServlet {
 			ResultSet rs=stmt.executeQuery("SELECT * FROM user WHERE email='"+userName+"'");
 			while(rs.next()){
 				uid=rs.getInt(1);
+				firstName=rs.getString(3);
+				checkPass=rs.getString(4);
 				luser.add(rs.getString(2));
 				luser.add(rs.getString(3));
 				luser.add(rs.getString(4));
@@ -110,16 +112,15 @@ public class LoginServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		
-		if(luser.get(2).equals(password)){
-			firstName=luser.get(1);
+		if(checkPass.equals(password)){
 			HttpSession session=request.getSession();  
-	        session.setAttribute("fname",firstName);
-	        session.setAttribute("notes", nList);
-	        session.setAttribute("tasks", tList);
-	        session.setAttribute("notification", notList.size());
-	        
-	        RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/home.jsp");
-	        dispatcher.forward(request, response);
+			session.setAttribute("fname",firstName);
+			session.setAttribute("notes", nList);
+			session.setAttribute("tasks", tList);
+			session.setAttribute("notification", notList.size());
+
+			RequestDispatcher dispatcher=getServletContext().getRequestDispatcher("/home.jsp");
+			dispatcher.forward(request, response);
 		}
 		else{
 			System.out.println("Invalid user");
