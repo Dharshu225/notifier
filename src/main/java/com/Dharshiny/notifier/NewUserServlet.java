@@ -44,11 +44,13 @@ public class NewUserServlet extends HttpServlet {
 			if(count==0){
 				stmt.executeUpdate("INSERT INTO user(email,firstName,password) VALUES ('"+ email+"','"+firstName+"','"+password +"')");
 				
+				request.setAttribute("success", "Successfully registered!");
 				RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 				return;
 			}
 			else{
+				request.setAttribute("fail", "Email already exists!");
 				RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 				return;
