@@ -2,6 +2,7 @@ package com.Dharshiny.notifier;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 import javax.servlet.RequestDispatcher;
@@ -32,23 +33,27 @@ public class NewUserServlet extends HttpServlet {
 			password=request.getParameter("password");
 			firstName=request.getParameter("firstName");
 			
-			stmt.executeUpdate("INSERT INTO user(email,firstName,password) VALUES ('"+ email+"','"+firstName+"','"+password +"')");
+			ResultSet rs=stmt.executeQuery("SELECT uid from user WHERE email='"+email+"'");
 			
-			RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-			return;
+			int count=0;
 			
-			/*LoginService login=new LoginService(firstName,email,password);
-			boolean result= login.validity(email);
-			if(result){
+			if(rs.next()){
+				count++;
+			}
+			
+			if(count==0){
+				stmt.executeUpdate("INSERT INTO user(email,firstName,password) VALUES ('"+ email+"','"+firstName+"','"+password +"')");
+				
 				RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
 				return;
-			}else{
-				request.setAttribute("errorMessage", "Email already exists!");
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+			}
+			else{
+				RequestDispatcher dispatcher=request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
 				return;
-			}*/
+			}
+			
 		}catch(Exception e){
 			e.printStackTrace();
 		}
