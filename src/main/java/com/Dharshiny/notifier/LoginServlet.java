@@ -127,38 +127,6 @@ public class LoginServlet extends HttpServlet {
 			return;
 		}
 		
-		/*LoginService login=new LoginService();
-		boolean result=login.authenticate(userName,password);
-		if(result){
-			User user=login.getUserDetails(userName);
-			request.setAttribute("user", user);
-			RequestDispatcher dispatcher=request.getRequestDispatcher("home.jsp");
-			dispatcher.forward(request, response);
-			return;
-		}else{
-			response.sendRedirect("index.jsp");
-			return;
-		}*/
-		
-		/*<%for(int i=0;i<note.size();i++){ %>
-		<div class="note">
-			<div class="sec1">
-				<h4><%out.print(note.get(i).getNote()); %> - <%out.print(note.get(i).getStatus()); %></h4>
-				<p><%out.print(note.get(i).getDescription()); %></p>
-				<p><b>Start : </b><%out.print(note.get(i).getSdate()); %> &nbsp; &nbsp;  <b>End : </b><%out.print(note.get(i).getEdate()); %> &nbsp; &nbsp; <b>Remainder : </b><%out.print(note.get(i).getRdate());%></p>
-			</div>
-			
-			<div class="sec2" style="float:right">
-			
-				<c:url var="editURL" value="editNote.jsp">
-				   <c:param name="nid" value="${note.get(i).getNid()}"/>
-				</c:url>
-				
-				<a href='<c:out value="${editURL}" />' style="margin-right:15px;">Edit</a>
-				<a href="#" style="margin-left:15px;">Delete</a>
-			</div>
-		</div>
-	<%} %> */
 	}
 
 }
