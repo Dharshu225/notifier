@@ -74,6 +74,25 @@
       	</form>
       	<button id="newUser" class="btn-info" onclick="location.href='newUser.jsp';">New User</button>
    	</div><br>
+	
+	<%String s1=(String)request.getAttribute("fail");
+   	if(s1!=null){%>
+   	
+   	<h5 style="text-align:center; color:red; font-size:15px;">Email already exist!</h5>
+   	<%} %>
+   	
+   	<%String s2=(String)request.getAttribute("success");
+   	if(s2!=null){%>
+   	
+   	<h5 style="text-align:center; color:green; font-size:15px;">Successfully registered!</h5>
+   	<%} %>
+   	
+   	<%String s3=(String)request.getAttribute("invalid");
+   	if(s3!=null){%>
+   	
+   	<h5 style="text-align:center; color:red; font-size:15px;">Invalid Username or Password!</h5>
+   	<%} %>
+	
    	<script>
    		function validate(){
    			var temp=true;
