@@ -105,7 +105,47 @@
 		</div>
 		
 		<% List<Note> note=(List<Note>)session.getAttribute("notes");  
-		List<Note> task=(List<Note>)session.getAttribute("tasks");	%>		
+		List<Note> task=(List<Note>)session.getAttribute("tasks");	%>
+		
+		<%String s1s=(String)request.getAttribute("editS");
+	   	if(s1s!=null){%>
+	   	<h5 style="text-align:center; color:green; font-size:15px;">Successfully edited note!</h5>
+	   	<%} %>
+	   	
+	   	<%String s1f=(String)request.getAttribute("editF");
+	   	if(s1f!=null){%>
+	   	<h5 style="text-align:center; color:red; font-size:15px;">Note cannot be edited!</h5>
+	   	<%} %>
+	   	
+	   	<%String s2s=(String)request.getAttribute("newS");
+	   	if(s2s!=null){%>
+	   	<h5 style="text-align:center; color:green; font-size:15px;">Successfully added note!</h5>
+	   	<%} %>
+	   	
+	   	<%String s2f=(String)request.getAttribute("newF");
+	   	if(s2f!=null){%>
+	   	<h5 style="text-align:center; color:red; font-size:15px;">Note cannot be added!</h5>
+	   	<%} %>
+	   	
+	   	<%String s3s=(String)request.getAttribute("delS");
+	   	if(s3s!=null){%>
+	   	<h5 style="text-align:center; color:green; font-size:15px;">Successfully deleted note!</h5>
+	   	<%} %>
+	   	
+	   	<%String s3f=(String)request.getAttribute("delF");
+	   	if(s3f!=null){%>
+	   	<h5 style="text-align:center; color:red; font-size:15px;">Note cannot be deleted!</h5>
+	   	<%} %>	
+	   	
+	   	<%String s4s=(String)request.getAttribute("updateS");
+	   	if(s4s!=null){%>
+	   	<h5 style="text-align:center; color:green; font-size:15px;">Successfully updated profile!</h5>
+	   	<%} %>
+	   	
+	   	<%String s4f=(String)request.getAttribute("updateF");
+	   	if(s4f!=null){%>
+	   	<h5 style="text-align:center; color:red; font-size:15px;">Profile cannot be updated!</h5>
+	   	<%} %>	
 		
 		<div class="body">
 			<div class="column left">
