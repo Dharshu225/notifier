@@ -46,7 +46,7 @@ public class DeleteNoteServlet extends HttpServlet{
 			String note,description,status,sdate,edate,rdate;
 			int nid=Integer.parseInt(request.getParameter("nid"));
 			
-			stmt.executeUpdate("DELETE FROM note WHERE nid="+nid);
+			int i=stmt.executeUpdate("DELETE FROM note WHERE nid="+nid);
 			
 			ResultSet nrs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"'");
 			while(nrs.next()){
@@ -82,6 +82,12 @@ public class DeleteNoteServlet extends HttpServlet{
 			session.setAttribute("notes", nList);
 			session.setAttribute("notification", notList.size());
 			
+			if(i>0){
+				request.setAttribute("delS", "Successfully deleted note!");
+			}
+			else{
+				request.setAttribute("delF", "Note cannot be deleted!");
+			}
 			RequestDispatcher dispatcher=request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
 			return;
