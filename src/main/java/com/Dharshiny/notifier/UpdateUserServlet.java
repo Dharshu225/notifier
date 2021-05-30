@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.Dharshiny.notifier.dto.DatabaseConnection;
-import com.Dharshiny.notifier.LoginServlet;
+import com.Dharshiny.notifier.LoginServlet;;
 
 
 @WebServlet("/UpdateUserServlet")
@@ -36,10 +36,18 @@ protected void doPost(HttpServletRequest request, HttpServletResponse response) 
 			password=request.getParameter("password");
 			firstName=request.getParameter("firstName");
 			
-			stmt.executeUpdate("UPDATE user SET firstName='"+firstName+"',password='"+password +"' WHERE uid="+uid);
+			int i=stmt.executeUpdate("UPDATE user SET firstName='"+firstName+"',password='"+password +"' WHERE uid="+uid);
 			
 			HttpSession session=request.getSession();  
-	        	session.setAttribute("fname",firstName);
+	        session.setAttribute("fname",firstName);
+	        
+	        if(i>=0){
+				request.setAttribute("updateS", "Successfully updated profile!");
+			}
+			else{
+				request.setAttribute("updateF", "Profile cannot be updated!");
+			}
+	        
 			RequestDispatcher dispatcher=request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
 			return;
