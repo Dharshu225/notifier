@@ -49,7 +49,7 @@ public class NewNoteServlet extends HttpServlet{
 			edate=request.getParameter("edate");
 			rdate=request.getParameter("rdate");
 			
-			stmt.executeUpdate("INSERT INTO note(note,description,status,sdate,edate,rdate,uid) VALUES ('"+ note+"','"+description+"','"+status+"','"+sdate+"','"+edate+"','"+rdate+"','"+uid+"')");
+			int i=stmt.executeUpdate("INSERT INTO note(note,description,status,sdate,edate,rdate,uid) VALUES ('"+ note+"','"+description+"','"+status+"','"+sdate+"','"+edate+"','"+rdate+"','"+uid+"')");
 			
 			ResultSet nrs=stmt.executeQuery("SELECT * FROM note WHERE uid='"+uid+"'");
 			while(nrs.next()){
@@ -102,6 +102,13 @@ public class NewNoteServlet extends HttpServlet{
 			session.setAttribute("notes", nList);
 			session.setAttribute("tasks", tList);
 			session.setAttribute("notification", notList.size());
+			
+			if(i>0){
+				request.setAttribute("newS", "Successfully added note!");
+			}
+			else{
+				request.setAttribute("newF", "Note cannot be added!");
+			}
 			 
 			RequestDispatcher dispatcher=request.getRequestDispatcher("home.jsp");
 			dispatcher.forward(request, response);
