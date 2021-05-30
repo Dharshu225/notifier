@@ -100,7 +100,7 @@
 		<div class="body">
 				<h3 style="text-align:center;">Notification</h3>
 				<% if(note.isEmpty()){%>
-					<h4>No remainder available...</h4>
+					<br><h4 style="text-align:center;">No notification available...</h4>
 				<% } %>
 				
 				<c:forEach items="${sessionScope.noteList}" var="user">
